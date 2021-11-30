@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { isAuthenticated } from "../middlewares/authentication.js";
-import { validateModel } from "../middlewares/validateModel.js";
+import {Router} from "express";
+import {isAuthenticated} from "../middlewares/authentication.js";
+import {validateModel} from "../middlewares/validateModel.js";
 import validations from "../validations/user/index.js";
 
 import account from "../controllers/account.js";
@@ -14,42 +14,52 @@ router.post(
    account.register
 );
 
-router.post("/login", ...validations.login, validateModel, account.login);
+router.post(
+   "/login",
+   ...validations.login,
+   validateModel,
+   account.login);
 
-router.post("/logout", isAuthenticated(), account.logout);
+router.get("/profile",
+   isAuthenticated(),
+   account.profile);
+
+router.post(
+   "/logout",
+   isAuthenticated(),
+   account.logout);
 
 router.put(
    "/changeUsername",
    isAuthenticated(),
    ...validations.changeUsername,
    validateModel,
-   account.changeUsername
-);
+   account.changeUsername);
 
 router.put(
    "/changeEmail",
    isAuthenticated(),
    ...validations.changeEmail,
    validateModel,
-   account.changeEmail
-);
+   account.changeEmail);
 
 router.put(
    "/changePassword",
    isAuthenticated(),
    ...validations.changePassword,
    validateModel,
-   account.changePassword
-);
+   account.changePassword);
 
-router.post("/remove", isAuthenticated(), account.removePost);
+router.post(
+   "/remove",
+   isAuthenticated(),
+   account.removePost);
 
 router.delete(
    "/remove",
    isAuthenticated(),
    ...validations.remove,
    validateModel,
-   account.removeDel
-);
+   account.removeDel);
 
 export default router;
