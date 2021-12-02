@@ -1,17 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom'
+import Header from "./components/Header";
+import Slideshow from "./components/Slideshow";
+import Feature from "./components/Feature";
+import Latest from "./components/Latest";
+import Newsletter from "./components/Newsletter";
+import Footer from "./components/Footer";
+
 
 function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-            </header>
-            <main>
-                <h1>Welcome to React!</h1>
-            </main>
-        </div>
-    );
+	return (
+		<div>
+
+			<Header />
+			<Slideshow />
+			<div className="allcontain">
+				<Feature />
+				<Latest />
+				<Newsletter />
+				<Footer />
+			</div>
+		</div>
+
+
+	);
 }
 
 export default App;
