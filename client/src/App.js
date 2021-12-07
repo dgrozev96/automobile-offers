@@ -8,6 +8,7 @@ import Newsletter from "./components/Newsletter";
 import Register from './components/Register';
 import Login from './components/Login';
 import Footer from "./components/Footer";
+import AddCar from './components/AddCar/AddCar';
 
 
 
@@ -15,11 +16,14 @@ function App() {
 	return (
 		<div>
 			<Header />
-			{/* <Slideshow />
-			
-			
-			<Newsletter /> */}
-			<Details />
+
+			<Routes>
+              <Route path="/" element={<Latest />} />
+              <Route path="/details" element={<Details />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/addcar" element={<AddCar />} />
+            </Routes>
 			<Footer />
 
 		</div>

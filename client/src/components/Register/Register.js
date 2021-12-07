@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import './Register.css'
-const Login = () => {
+const Register = () => {
 
     return (
         <>
@@ -34,4 +34,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default Register;

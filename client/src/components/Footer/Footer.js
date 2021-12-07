@@ -5,7 +5,7 @@ const Footer = () => {
         <>
             <div className="bottommenu">
 					<div className="bottomlogo">
-						<span className="dotlogo">bullet;</span><img src="/image/collectionlogo1.png" alt="logo1" /><span className="dotlogo">&bullet;;</span>
+						<span className="dotlogo"></span><img src="/image/collectionlogo1.png" alt="logo1" /><span className="dotlogo"></span>
 					</div>
 					<ul className="nav nav-tabs bottomlinks">
 						<li role="presentation" ><a href="#/" role="button">ABOUT US</a></li>

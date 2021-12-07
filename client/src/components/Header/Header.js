@@ -25,39 +25,16 @@ const Header = () => {
                 <nav className="topnavbar navbar-default topnav">
                     <div className="container">
                         <div className="navbar-header">
-                            <button type="button" className="navbar-toggle collapsed toggle-costume" data-toggle="collapse" data-target="#upmenu" aria-expanded="false">
-                                <span className="sr-only"> Toggle navigaion</span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                            </button>
+                           
                             <a className="navbar-brand logo" href="#"><img src="/image/logo1.png" alt="logo" /></a>
                         </div>
                     </div>
                     <div className="collapse navbar-collapse" id="upmenu">
                         <ul className="nav navbar-nav" id="navbarontop">
-                            <li className="active"><a href="#">HOME</a> </li>
-                            <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CATEGORIES <span className="caret"></span></a>
-                                <ul className="dropdown-menu dropdowncostume">
-                                    <li><a href="#">Sport</a></li>
-                                    <li><a href="#">Old</a></li>
-                                    <li><a href="#">New</a></li>
-                                </ul>
-                            </li>
-                            <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DEALERS <span className="caret"></span></a>
-                                <ul className="dropdown-menu dropdowncostume">
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="3">3</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="contact.html">CONTACT</a>
+                            <li className="active"><a href="/">Home</a> </li>
+                            <li className="active"><a href="#">All offers</a> </li>
 
-                            </li>
-                            <button><span className="postnewcar">POST NEW CAR</span></button>
+                            <button><span className="postnewcar"><a href="/addcar">Add new car</a></span></button>
                         </ul>
                     </div>
                 </nav>
