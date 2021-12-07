@@ -14,8 +14,8 @@ const Header = () => {
                     <li>Give us a call : +66666666 </li>
                 </ul>
                 <ul className="logreg">
-                    <li><a href="#">Login </a> </li>
-                    <li><a href="#"><span className="register">Register</span></a></li>
+                    <li><a href="/login">Login </a> </li>
+                    <li><a href="/register"><span className="register">Register</span></a></li>
                 </ul>
             </div>
 
