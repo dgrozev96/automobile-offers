@@ -1,5 +1,28 @@
-import { Link, NavLink } from 'react-router-dom'
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+
+import { AuthContext } from '../../contexts/AuthContext';
+
 const Header = () => {
+    const { user } = useContext(AuthContext);
+
+    let guestNavigation = (
+        <>
+            <li className="active"><Link className="active" to="/login">Login</Link></li>
+            <li className="active"><Link to="/register" className="active">Register</Link></li>
+        </>
+
+    );
+
+    let userNavigation = (
+        <>
+            
+            <li className="active"><Link to="/my-offers">My Offers</Link></li>
+            <li className="active"><Link to="/addcar">Add new car</Link></li>
+            <li className="active"><Link to="/logout">Logout</Link></li>
+        </>
+    );
+
 
     return (
         <>
@@ -14,8 +37,7 @@ const Header = () => {
                     <li>Give us a call : +66666666 </li>
                 </ul>
                 <ul className="logreg">
-                    <li><a href="/login">Login </a> </li>
-                    <li><a href="/register"><span className="register">Register</span></a></li>
+                <span>Welcome, {user.email}</span>
                 </ul>
             </div>
 
@@ -25,16 +47,17 @@ const Header = () => {
                 <nav className="topnavbar navbar-default topnav">
                     <div className="container">
                         <div className="navbar-header">
-                           
+
                             <a className="navbar-brand logo" href="#"><img src="/image/logo1.png" alt="logo" /></a>
                         </div>
                     </div>
                     <div className="collapse navbar-collapse" id="upmenu">
                         <ul className="nav navbar-nav" id="navbarontop">
-                            <li className="active"><a href="/">Home</a> </li>
-                            <li className="active"><a href="#">All offers</a> </li>
-
-                            <button><span className="postnewcar"><a href="/addcar">Add new car</a></span></button>
+                        <li className="active"><Link to="/">Home</Link></li>
+                            {user.email
+                                ? userNavigation
+                                : guestNavigation
+                            }
                         </ul>
                     </div>
                 </nav>

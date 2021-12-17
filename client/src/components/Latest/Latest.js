@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import OfferCard from '../Offer/OfferCard';
+import OfferCard from '../OfferList/';
 const Latest = () => {
 
     return (

@@ -1,40 +1,80 @@
-import { Link, NavLink } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import * as offerService from '../../services/offerService';
+import { AuthContext } from '../../contexts/AuthContext';
+
 const Details = () => {
 
-    return (
-        <>
-            <div className="feturedsection">
-					<h1 className="text-center"><span className="bdots"></span>F E A T U R E S<span className="carstxt">C A R S</span></h1>
-				</div>
-				<div className="fetured/image">
-					<div className="row firstrow">
+	const navigate = useNavigate();
+	const { user } = useContext(AuthContext);
+	const [offer, setOffer] = useState({});
+	const { offerId } = useParams();
+
+	useEffect(() => {
+		offerService.getOne(offerId)
+			.then(offerResult => {
+				setOffer(offerResult);
+			})
+	}, [offerId]);
+
+	const deleteHandler = (e) => {
+		e.preventDefault();
+
+		offerService.destroy(offerId, user.accessToken)
+			.then(() => {
+				navigate('/');
+			});
+	};
+
+	const likeHandler = (e) => {
+		e.preventDefault();
+	}
+
+	const ownerButtons = (
+		<>
+			<button id="btnRM2">Edit</button>
+			<button onClick={deleteHandler} id="btnRM2">Delete</button>
+		</>
+	);
+
+	const userButtons = <button id="btnRM2">Like</button>;
+
+
+	return (
+		<>
+			<div className="feturedsection">
+				<h1 className="text-center"><span className="bdots"></span>F E A T U R E S<span className="carstxt">C A R S</span></h1>
+			</div>
+			<div className="fetured/image">
+				<div className="row firstrow">
+
+
+
+
+					<div className="featurecontant">
+						<img width="50%" src={offer.imageUrl} alt="Golf5" />
+						<h2>Brand: {offer.brand}</h2>
+						<h2>Make: {offer.make}</h2>
+						<h2>Price: {offer.price} &euro;</h2>
+						<h2>Engine: {offer.engine}</h2>
+						<h2>Likes: {offer.likes.length}</h2>
+						<h2>Details: {offer.details}</h2>
+
+						{user._id && (user._id == offer._ownerId
+							? ownerButtons
+							: userButtons
+						)}
 						
-						
-								
-					
-									<div className="featurecontant">
-									<img width="50%" src="http://cdn.shopify.com/s/files/1/2481/4466/products/Golf-5-R32-8_1200x1200.jpg?v=1515171398" alt="Golf5" />
-										<h1>VW Golf 5</h1>
-										<h2>Details:</h2>
-										<p>Mnogo bqga i vurvi, Mnogo bqga i vurvi, Mnogo bqga i vurvi,
-											 Mnogo bqga i vurvi, Mnogo bqga i vurvi,Mnogo bqga i vurvi, Mnogo bqga i vurvi, Mnogo bqga i vurvi,  </p>
-										<h2>Price: 10000 &euro;</h2>
-										<h2>Engine: 1.9TDI</h2>
-										<h2>Condition: Used</h2>
-										<h2>Likes: 32</h2>
-										<button id="btnRM2">Edit</button>
-										<button id="btnRM2">Delete</button>
-										<button id="btnRM2">Like</button>
-										
-									</div>
-								
-							
+
 					</div>
+
+
 				</div>
-        </>
+			</div>
+		</>
 
 
-    )
+	)
 }
 
 export default Details;

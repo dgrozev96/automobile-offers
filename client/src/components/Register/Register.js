@@ -1,23 +1,43 @@
-import { Link, NavLink } from 'react-router-dom'
+import { useContext } from 'react';
+import { useNavigate } from 'react-router';
+
+import * as authService from '../../services/authService';
+import { AuthContext } from '../../contexts/AuthContext';
+
 import './Register.css'
 const Register = () => {
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
+  const registerSubmitHandler = (e) => {
+      e.preventDefault();
+
+      let { email, password } = Object.fromEntries(new FormData(e.currentTarget));
+
+      authService.register(email, password)   
+          .then(authData => {
+              login(authData);
+              
+              navigate('/dashboard');
+          });
+  }
     return (
         <>
-           <form action="" >
+           <form id="register-form" method="POST" onSubmit={registerSubmitHandler}>
   <div className="container">
     <h1>Register</h1>
     <p>Please fill in this form to create an account.</p>
     <hr />
 
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" id="email" required />
+      
+    <label htmlFor="email"><b>Email</b></label>
+    <input type="text" name="email" id="email" placeholder="Email" />
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" id="psw" required />
+    <label htmlFor="password"><b>Password</b></label>
+    <input type="password" name="password" id="password" placeholder="Password" />
 
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required />
+    <label htmlFor="repeat-pass"><b>Repeat Password</b></label>
+    <input type="password" name="confirm-pass" id="repeat-pass" placeholder="Repeat Password" />
     <hr />
 
     <button type="submit" className="registerbtn">Register</button>

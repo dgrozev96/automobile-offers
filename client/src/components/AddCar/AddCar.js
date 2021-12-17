@@ -1,34 +1,66 @@
-import { Link, NavLink } from 'react-router-dom'
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import * as offerService from '../../services/offerService';
+import { AuthContext } from '../../contexts/AuthContext';
+
 import './AddCar.css'
 const AddCar = () => {
 
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const onOfferCreate = (e) => {
+      e.preventDefault();
+      let formData = new FormData(e.currentTarget);
+
+      let brand = formData.get('brand');
+      let make = formData.get('make');
+      let price = formData.get('price');
+      let details = formData.get('details');
+      let imageUrl = formData.get('imageUrl');
+      let engine = formData.get('engine');
+      
+
+      offerService.create({
+          brand,
+          make,
+          price,
+          engine,
+          details,
+          imageUrl,
+      }, user.accessToken)
+          .then(result => {
+              navigate('/');
+          })
+  }
+
+
+
     return (
         <>
-           <form action="" >
+           <form onSubmit={onOfferCreate} method="POST" >
   <div className="container">
     <h1>Add Car</h1>
     <p>Please fill in this form to add a new car.</p>
     <hr />
 
-    <label for="email"><b>Brand and make</b></label>
-    <input type="text" placeholder="e.g VW Golf 5" name="email" id="email" required />
+    <label htmlfor="brand"><b>Brand</b></label>
+    <input type="text" name="brand" id="brand" placeholder="Volkswagen" />
 
-    <label for="psw"><b>Details</b></label>
-    <input type="text" placeholder="more info about the car" name="psw" id="psw" required />
+    <label htmlfor="make"><b>Make</b></label>
+    <input type="text" name="make" id="make" placeholder="Golf 5" />
 
-    <label for="psw-repeat"><b>Price</b></label>
-    <input type="text" placeholder="price in euro" name="psw-repeat" id="psw-repeat" required />
+    <label htmlfor="engine"><b>Engine</b></label>
+    <input type="text" name="engine" id="engine" placeholder="1.9 TDI" />
 
-    <label for="psw-repeat"><b>Engine</b></label>
-    <input type="text" placeholder="e.g 1.9 TDI" name="psw-repeat" id="psw-repeat" required />
+    <label htmlfor="price"><b>Price</b></label>
+    <input type="text" className="price" name="price" id="price" placeholder="5000 Euro" />
 
-    <label for="psw-repeat"><b>Condition</b></label>
-    <br />
-    
-    <input type="radio" id="new" name="condition" value="HTML" />
-  <label for="new">new</label> 
-  <input type="radio" id="used" name="condition" value="CSS" /> 
-  <label for="used">used</label>
+    <label htmlFor="details"><b>Details</b></label>
+    <textarea type="text" name="details" id="details" placeholder="more info about the car"/>
+
+    <label htmlFor="image"><b>Picture</b></label>
+    <input type="text" name="imageUrl" id="image" placeholder="Link to a picture of the car" />
 
 
     <hr />
