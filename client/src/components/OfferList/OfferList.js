@@ -1,21 +1,9 @@
-import { useEffect, useState } from "react";
 import OfferCard from "./OfferCard";
-import * as offerService from '../../services/offerService';
 
-const OfferList = () => {
-    const [offers, setOffers] = useState([]);
-
-    useEffect(() => {
-        offerService.getAll()
-            .then(result => {
-                console.log(result);
-                setOffers(result);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, []);
-
+const OfferList = ({
+    offers
+    
+}) => {
     return (
         <>
             {offers.length > 0
@@ -24,7 +12,8 @@ const OfferList = () => {
                         {offers.map(x => <OfferCard key={x._id} offer={x} />)}
                     </ul>
                 ) 
-                : <p className="no-pets">No pets in database!</p>
+                : <p className="no-pets">No pets in database! </p>
+                
             }
         </>
     );

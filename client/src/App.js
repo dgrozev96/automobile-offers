@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import { AuthContext } from './contexts/AuthContext';
-import useLocalStorage from './hooks/useLocalStorage';
 import { Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext';
+import { NotificationProvider } from './contexts/NotificationContext'
+
+import AddCar from './components/AddCar/AddCar';
 import Header from "./components/Header";
 import Details from "./components/Details";
 import Slideshow from "./components/Slideshow";
@@ -10,51 +11,51 @@ import Newsletter from "./components/Newsletter";
 import Register from './components/Register';
 import Login from './components/Login';
 import Footer from "./components/Footer";
+import MyOffers from './components/MyOffers';
+import Edit from "./components/Edit"
 import Logout from "./components/Logout";
+import Notification from './components/Common/Notification';
+import ErrorBoundary from './components/Common/ErrorBoundary';
+import PrivateRoute from './components/Common/PrivateRoute';
+import GuardedRoute from './components/Common/GuardedRoute';
 
-import AddCar from './components/AddCar/AddCar';
 
-const initialAuthState = {
-	_id: '',
-	email: '',
-	accessToken: '',
-};
-
+import 'bootstrap';
 
 function App() {
 
-	const [user, setUser] = useLocalStorage('user', initialAuthState);
-
-	const login = (authData) => {
-		setUser(authData);
-	}
-
-	const logout = () => {
-		setUser(initialAuthState);
-	};
-
 	return (
-		<AuthContext.Provider value={{ user, login, logout }}>
-			<div>
+		<ErrorBoundary>
+      <AuthProvider>
+        <NotificationProvider>
+          <div id="container">
+            <Header />
 
-				<Header />
+            <Notification />
 
-				<Routes>
-					<Route path="/" element={<Latest />} />
-					<Route path="/details" element={<Details />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
-					<Route path="/logout" element={<Logout />} />
-					<Route path="/addcar" element={<AddCar />} />
-					<Route path="/details/:offerId" element={<Details />} />
-				</Routes>
-				<Footer />
+            <main id="site-content">
+              <Routes>
+                <Route path="/*" element={<Latest />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/my-offers" element={<PrivateRoute><MyOffers /></PrivateRoute>} />
+                <Route path="/details/:offerId" element={<Details />} />
 
-			</div>
-		</AuthContext.Provider>
+                <Route element={<GuardedRoute />}>
+                  <Route path="/addcar" element={<AddCar />} />
+                  <Route path="/edit/:offerId" element={<Edit />} />
+                </Route>
+              </Routes>
+            </main>
 
+            <Footer />
+          </div>
+        </NotificationProvider>
+      </AuthProvider>
+    </ErrorBoundary>
+  );
 
-	);
 }
 
 export default App;

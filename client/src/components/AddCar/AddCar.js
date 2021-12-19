@@ -38,9 +38,10 @@ const AddCar = () => {
 
     return (
         <>
+
            <form onSubmit={onOfferCreate} method="POST" >
   <div className="container">
-    <h1>Add Car</h1>
+    <h1>Add a car</h1>
     <p>Please fill in this form to add a new car.</p>
     <hr />
 
