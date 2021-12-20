@@ -73,7 +73,7 @@ const Details = () => {
         <>
             <ConfirmDialog show={showDeleteDialog} onClose={() => setShowDeleteDialog(false)} onSave={deleteHandler} />
             <div className="feturedsection">
-                <h1 className="text-center"><span className="bdots"></span>Details of the offer</h1>
+                <h1 className="text-center"><span className="bdots"></span>Details of the car</h1>
             </div>
             <div className="fetured/image">
                 <div className="row firstrow">

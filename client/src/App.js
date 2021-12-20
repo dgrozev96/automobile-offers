@@ -2,17 +2,17 @@ import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext';
 import { NotificationProvider } from './contexts/NotificationContext'
 
-import AddCar from './components/AddCar/AddCar';
+
 import Header from "./components/Header";
-import Details from "./components/Details";
-import Slideshow from "./components/Slideshow";
-import Latest from "./components/Latest";
-import Newsletter from "./components/Newsletter";
+
 import Register from './components/Register';
 import Login from './components/Login';
 import Footer from "./components/Footer";
 import MyOffers from './components/MyOffers';
 import Edit from "./components/Edit"
+import Details from "./components/Details";
+import Latest from "./components/Latest";
+import AddCar from './components/AddCar/AddCar';
 import Logout from "./components/Logout";
 import Notification from './components/Common/Notification';
 import ErrorBoundary from './components/Common/ErrorBoundary';
@@ -20,12 +20,10 @@ import PrivateRoute from './components/Common/PrivateRoute';
 import GuardedRoute from './components/Common/GuardedRoute';
 
 
-import 'bootstrap';
-
 function App() {
 
-	return (
-		<ErrorBoundary>
+  return (
+    <ErrorBoundary>
       <AuthProvider>
         <NotificationProvider>
           <div id="container">
@@ -41,6 +39,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/my-offers" element={<PrivateRoute><MyOffers /></PrivateRoute>} />
                 <Route path="/details/:offerId" element={<Details />} />
+
 
                 <Route element={<GuardedRoute />}>
                   <Route path="/addcar" element={<AddCar />} />

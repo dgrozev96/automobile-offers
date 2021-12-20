@@ -20,7 +20,7 @@ const Edit = () => {
     offerService.update(offer._id, offerData);
   }
 
-  const nameChangeHandler = (e) => {
+  const x = (e) => {
     let currentBrand = e.target.value;
     if (currentBrand.length < 3) {
       setErrors(state => ({ ...state, brand: 'Your name sould be at least 3 characters!' }))
@@ -41,10 +41,11 @@ const Edit = () => {
           <hr />
 
           <label htmlfor="brand"><b>Brand</b></label>
-          <span className="input" style={{ borderColor: errors.brand ? 'red' : 'inherit' }}>
-            <input type="text" name="brand" id="brand" defaultValue={offer.brand} onChange={nameChangeHandler} />
+          <span className="input" style={{borderColor: errors.brand ? 'red' : 'blue'}}>
+            <input type="text" name="brand" id="brand" defaultValue={offer.brand} onChange={brandChangeHandler} />
+            <Alert variant="danger" show={errors.brand}>{errors.brand}</Alert>
           </span>
-          <Alert variant="danger" show={errors.brand}>{errors.brand}</Alert>
+          
 
           <label htmlfor="make"><b>Make</b></label>
           <input type="text" name="make" id="make" defaultValue={offer.make} />

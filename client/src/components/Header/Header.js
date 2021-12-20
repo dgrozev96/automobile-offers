@@ -17,8 +17,8 @@ const Header = () => {
     let userNavigation = (
         <>
             
-            <li className="active"><Link to="/my-offers">My Offers</Link></li>
-            <li className="active"><Link to="/addcar">Add new car</Link></li>
+            <li className="active"><Link to="/my-offers">My offers</Link></li>
+            <li className="active"><Link to="/addcar">Sell your car</Link></li>
             <li className="active"><Link to="/logout">Logout</Link></li>
         </>
     );
@@ -53,7 +53,7 @@ const Header = () => {
                     </div>
                     <div className="collapse navbar-collapse" id="upmenu">
                         <ul className="nav navbar-nav" id="navbarontop">
-                        <li className="active"><Link to="/">Home</Link></li>
+                        <li className="active"><Link to="/">All cars</Link></li>
                             {user.email
                                 ? userNavigation
                                 : guestNavigation
