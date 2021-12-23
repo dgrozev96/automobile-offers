@@ -4,10 +4,11 @@ Automobile offers is a web app for selling automobiles.It is based on React.JS a
 
 ## Installation
 
+
 starting the server:
 cd server
 node server
---------
+
 starting React app
 in new terminal
 cd client
