@@ -11,7 +11,7 @@ export const create = async (offerData, token) => {
             'content-type': 'application/json',
             'X-Authorization': token,
         },
-        body: JSON.stringify({...offerData, likes: []})
+        body: JSON.stringify({ ...offerData, likes: "0" })
     });
 
     let result = await response.json();
@@ -31,4 +31,20 @@ export const destroy = (offerId, token) => {
             'X-Authorization': token
         }
     }).then(res => res.json());
+}
+
+export const like = async (offerId) => {
+   
+        return fetch(`${baseUrl}/offers/${offerId}`)
+        .then(res =>res.json())
+        
+    
+    // let response = await fetch(`${baseUrl}/offers/${offer._id}`, {
+    //     method: 'PATCH',
+    //     headers: {
+    //         'content-type': 'application/json',
+    //         'X-Authorization': token,
+    //     },
+    //     body: JSON.stringify({ likes: "1"})
+    // })
 }

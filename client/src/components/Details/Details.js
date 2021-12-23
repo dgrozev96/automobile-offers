@@ -28,6 +28,11 @@ const Details = () => {
 
 	const likeHandler = (e) => {
 		e.preventDefault();
+		offerService.like(offerId)
+
+		console.log(typeof offer.like);
+
+
 	}
 
 	const ownerButtons = (
@@ -37,7 +42,7 @@ const Details = () => {
 		</>
 	);
 
-	const userButtons = <button id="btnRM2">Like</button>;
+	const userButtons = <button onClick={likeHandler} id="btnRM2">Like</button>;
 
 
 	return (
@@ -47,28 +52,22 @@ const Details = () => {
 			</div>
 			<div className="fetured/image">
 				<div className="row firstrow">
-
-
-
-
 					<div className="featurecontant">
 						<img width="50%" src={offer.imageUrl} alt="Golf5" />
 						<h2>Brand: {offer.brand}</h2>
 						<h2>Make: {offer.make}</h2>
 						<h2>Price: {offer.price} &euro;</h2>
 						<h2>Engine: {offer.engine}</h2>
-						<h2>Likes: {offer.likes.length}</h2>
+						<h2>Likes: {offer.likes}</h2>
 						<h2>Details: {offer.details}</h2>
 
 						{user._id && (user._id == offer._ownerId
 							? ownerButtons
 							: userButtons
 						)}
-						
+
 
 					</div>
-
-
 				</div>
 			</div>
 		</>

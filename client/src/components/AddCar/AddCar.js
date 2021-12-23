@@ -19,6 +19,7 @@ const AddCar = () => {
       let details = formData.get('details');
       let imageUrl = formData.get('imageUrl');
       let engine = formData.get('engine');
+      let likes = 0;
       
 
       offerService.create({
@@ -28,6 +29,7 @@ const AddCar = () => {
           engine,
           details,
           imageUrl,
+          likes,
       }, user.accessToken)
           .then(result => {
               navigate('/');
