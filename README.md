@@ -10,7 +10,7 @@ starting the server:
 cd server
 ```
 node server
-
+```
 
 starting React app
 
@@ -19,7 +19,7 @@ in new terminal
 cd client
 ```
 npm start
-
+```
 
 ## Installation
 Users can register and login with email and passsword.
