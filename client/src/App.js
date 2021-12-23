@@ -1,60 +1,57 @@
-import { useState, useEffect } from 'react';
-import { AuthContext } from './contexts/AuthContext';
-import useLocalStorage from './hooks/useLocalStorage';
 import { Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext';
+
+
+
 import Header from "./components/Header";
-import Details from "./components/Details";
-import Slideshow from "./components/Slideshow";
-import Latest from "./components/Latest";
-import Newsletter from "./components/Newsletter";
+
 import Register from './components/Register';
 import Login from './components/Login';
 import Footer from "./components/Footer";
-import Logout from "./components/Logout";
-
+import MyOffers from './components/MyOffers';
+import Edit from "./components/Edit"
+import Details from "./components/Details";
+import Latest from "./components/Latest";
 import AddCar from './components/AddCar/AddCar';
-
-const initialAuthState = {
-	_id: '',
-	email: '',
-	accessToken: '',
-};
+import Logout from "./components/Logout";
+import PrivateRoute from './components/Common/PrivateRoute';
+import GuardedRoute from './components/Common/GuardedRoute';
 
 
 function App() {
 
-	const [user, setUser] = useLocalStorage('user', initialAuthState);
+  return (
 
-	const login = (authData) => {
-		setUser(authData);
-	}
-
-	const logout = () => {
-		setUser(initialAuthState);
-	};
-
-	return (
-		<AuthContext.Provider value={{ user, login, logout }}>
-			<div>
-
-				<Header />
-
-				<Routes>
-					<Route path="/" element={<Latest />} />
-					<Route path="/details" element={<Details />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
-					<Route path="/logout" element={<Logout />} />
-					<Route path="/addcar" element={<AddCar />} />
-					<Route path="/details/:offerId" element={<Details />} />
-				</Routes>
-				<Footer />
-
-			</div>
-		</AuthContext.Provider>
+      <AuthProvider>
+          <div id="container">
+            <Header />
 
 
-	);
+
+            <main id="site-content">
+              <Routes>
+                <Route path="/*" element={<Latest />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/my-offers" element={<PrivateRoute><MyOffers /></PrivateRoute>} />
+                <Route path="/details/:offerId" element={<Details />} />
+
+
+                <Route element={<GuardedRoute />}>
+                  <Route path="/addcar" element={<AddCar />} />
+                  <Route path="/edit/:offerId" element={<Edit />} />
+                </Route>
+              </Routes>
+            </main>
+
+            <Footer />
+          </div>
+
+      </AuthProvider>
+
+  );
+
 }
 
 export default App;

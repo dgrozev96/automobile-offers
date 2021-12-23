@@ -19,7 +19,6 @@ const AddCar = () => {
       let details = formData.get('details');
       let imageUrl = formData.get('imageUrl');
       let engine = formData.get('engine');
-      let likes = 0;
       
 
       offerService.create({
@@ -29,7 +28,6 @@ const AddCar = () => {
           engine,
           details,
           imageUrl,
-          likes,
       }, user.accessToken)
           .then(result => {
               navigate('/');
@@ -40,9 +38,10 @@ const AddCar = () => {
 
     return (
         <>
+
            <form onSubmit={onOfferCreate} method="POST" >
   <div className="container">
-    <h1>Add Car</h1>
+    <h1>Add a car</h1>
     <p>Please fill in this form to add a new car.</p>
     <hr />
 
@@ -56,7 +55,7 @@ const AddCar = () => {
     <input type="text" name="engine" id="engine" placeholder="1.9 TDI" />
 
     <label htmlfor="price"><b>Price</b></label>
-    <input type="text" className="price" name="price" id="price" placeholder="5000 Euro" />
+    <input type="number" className="price" name="price" id="price" placeholder="5000 Euro" />
 
     <label htmlFor="details"><b>Details</b></label>
     <textarea type="text" name="details" id="details" placeholder="more info about the car"/>

@@ -862,6 +862,13 @@ width: 20%;
 	padding-top: 15px;
 	padding-bottom: 15px;
 }
+.featurecontant>img{
+	width: 60%; 
+	margin-top: 5px;
+	 display: block;
+    margin-left: auto;
+    margin-right: auto
+}
 .featurecontant>button:hover{
 	-moz-transition: all .3s ease-in;
     -o-transition: all .3s ease-in;
@@ -1193,8 +1200,8 @@ padding-left: 0px;
 
 }
  .stars{
- 	font-size: 7px;
-	padding-top: 57px;
+ 	font-size: 20px;
+	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: center;
 	border-bottom: 2px solid #F6F6FB;
@@ -1204,13 +1211,13 @@ padding-left: 0px;
 
 }
 .simpletxt{
-	text-align: center;
+
 	border-top: 1px solid #F6F6FB;
 	border-bottom: 1px solid #F6F6FB;
-	margin-top: 2px;
+	margin-top: 1px;
 	margin-left: 58px;
 	margin-right: 58px;
-	padding-top: 40px;
+	padding-top: 1%;
 }
 .simpletxt>h3{
 	font-family: "OpenSans Semibold";
@@ -1220,7 +1227,7 @@ padding-left: 0px;
 }
 .simpletxt>p{
 	font-family: "OpenSans Regular";
-	font-size: 11.2px;
+	font-size: 16px;
 	color: #E7E7E7;
 	padding-top: 7px;
 }

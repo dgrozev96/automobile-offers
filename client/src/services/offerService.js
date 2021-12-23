@@ -1,8 +1,14 @@
-import { request } from './requester';
+import * as request from './requester';
 
 const baseUrl = 'http://localhost:3030/data';
 
-export const getAll = () => request(`${baseUrl}/offers`)
+export const getAll = () => request.get(`${baseUrl}/offers`)
+
+export const getMyOffers = (ownerId) => {
+    let query = encodeURIComponent(`_ownerId="${ownerId}"`);
+
+    return request.get(`${baseUrl}/offers?where=${query}`);
+};
 
 export const create = async (offerData, token) => {
     let response = await fetch(`${baseUrl}/offers`, {
@@ -11,7 +17,7 @@ export const create = async (offerData, token) => {
             'content-type': 'application/json',
             'X-Authorization': token,
         },
-        body: JSON.stringify({ ...offerData, likes: "0" })
+        body: JSON.stringify({...offerData, likes: []})
     });
 
     let result = await response.json();
@@ -19,8 +25,10 @@ export const create = async (offerData, token) => {
     return result;
 };
 
-export const getOne = (offerId) => {
-    return fetch(`${baseUrl}/offers/${offerId}`)
+export const update = (offerId, offerData) => request.put(`${baseUrl}/offers/${offerId}`, offerData);
+
+export const getOne = (offerId, signal) => {
+    return fetch(`${baseUrl}/offers/${offerId}`, { signal })
         .then(res => res.json())
 };
 
@@ -33,18 +41,13 @@ export const destroy = (offerId, token) => {
     }).then(res => res.json());
 }
 
-export const like = async (offerId) => {
-   
-        return fetch(`${baseUrl}/offers/${offerId}`)
-        .then(res =>res.json())
-        
-    
-    // let response = await fetch(`${baseUrl}/offers/${offer._id}`, {
-    //     method: 'PATCH',
-    //     headers: {
-    //         'content-type': 'application/json',
-    //         'X-Authorization': token,
-    //     },
-    //     body: JSON.stringify({ likes: "1"})
-    // })
-}
+export const like = (offerId, offer, token) => {
+    return fetch(`${baseUrl}/offers/${offerId}`, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json',
+            'X-Authorization': token
+        },
+        body: JSON.stringify(offer)
+    }).then(res => res.json());
+};
