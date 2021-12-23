@@ -21,7 +21,7 @@ cd client
 npm start
 ```
 
-## Installation
+## Instructions
 Users can register and login with email and passsword.
 
 Registered users can only create new offer 
