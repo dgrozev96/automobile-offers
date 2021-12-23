@@ -22,25 +22,10 @@ npm start
 
 ```
 
-## Usage
-
-```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
-```
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+## Instructions
+Users can register and login with email and passsword.
+Registered users can only create new offer 
+for selling their car.
+The author of the offer can edit and delete it's offer.
+Registered users can like the given offer.
+Guests can only see all offers and the details page, but cannot delete, edit or like.
