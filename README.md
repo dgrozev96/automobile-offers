@@ -7,8 +7,8 @@ Automobile offers is a web app for selling automobiles.It is based on React.JS a
 
 starting the server:
 
-cd server
 ```
+cd server
 node server
 ```
 
@@ -16,8 +16,8 @@ starting React app
 
 in new terminal
 
-cd client
 ```
+cd client
 npm start
 ```
 
