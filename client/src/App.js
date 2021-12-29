@@ -25,9 +25,6 @@ function App() {
       <AuthProvider>
           <div id="container">
             <Header />
-
-
-
             <main id="site-content">
               <Routes>
                 <Route path="/*" element={<Latest />} />

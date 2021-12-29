@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as offerService from '../../services/offerService';
 import useOfferState from '../../hooks/useOfferState';
-import { Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 
 import './Edit.css'
