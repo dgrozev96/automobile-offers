@@ -1,57 +1,110 @@
-import { useContext } from 'react';
-import { useNavigate } from 'react-router';
+import { useContext } from "react";
+import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { NotificationManager } from "react-notifications";
+import * as authService from "../../services/authService";
+import { AuthContext } from "../../contexts/AuthContext";
 
-import * as authService from '../../services/authService';
-import { AuthContext } from '../../contexts/AuthContext';
-
-import './Register.css'
+import "./Register.css";
 const Register = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  const registerSubmitHandler = (e) => {
-      e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    let { email, password, rePassword } = data;
+    // console.log(data);
+    if (password == rePassword) {
+      authService.register(email, password).then((authData) => {
+        login(authData);
 
-      let { email, password } = Object.fromEntries(new FormData(e.currentTarget));
+        navigate("/dashboard");
+        NotificationManager.success(
+          "You successfully created an account",
+          "Success!",
+          2000
+        );
+      });
+    } else {
+      NotificationManager.warning(
+        "Error creating an account",
+        "Warning!",
+        2000
+      );
+    }
+  };
 
-      authService.register(email, password)   
-          .then(authData => {
-              login(authData);
-              
-              navigate('/dashboard');
-          });
-  }
-    return (
-        <>
-           <form id="register-form" method="POST" onSubmit={registerSubmitHandler}>
-  <div className="container">
-    <h1>Register</h1>
-    <p>Please fill in this form to create an account.</p>
-    <hr />
+  // const registerSubmitHandler = (e) => {
+  //     e.preventDefault();
 
-      
-    <label htmlFor="email"><b>Email</b></label>
-    <input type="text" name="email" id="email" placeholder="Email" />
+  //     let { email, password } = Object.fromEntries(new FormData(e.currentTarget));
 
-    <label htmlFor="password"><b>Password</b></label>
-    <input type="password" name="password" id="password" placeholder="Password" />
+  //     authService.register(email, password)
+  //         .then(authData => {
+  //             login(authData);
 
-    <label htmlFor="repeat-pass"><b>Repeat Password</b></label>
-    <input type="password" name="confirm-pass" id="repeat-pass" placeholder="Repeat Password" />
-    <hr />
+  //             navigate('/dashboard');
+  //         });
+  // }
+  return (
+    <>
+      <form id="register-form" method="POST" onSubmit={handleSubmit(onSubmit)}>
+        <div className="container">
+          <h1>Register</h1>
+          <p>Please fill in this form to create an account.</p>
+          <hr />
+          <label htmlFor="email">
+            <b>Email</b>
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="email"
+            {...register("email", { required: true, min: 3, maxLength: 40 })}
+          />
+          <label htmlFor="password">
+            <b>Password</b>
+          </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="password"
+            {...register("password", { required: true, min: 3, maxLength: 30 })}
+          />
 
-    <button type="submit" className="registerbtn">Register</button>
-  </div>
-  
-  <div className="container signin">
-    <p>Already have an account? <a href="#">Sign in</a>.</p>
-  </div>
-</form>
-				
-        </>
+          <label htmlFor="repeat-pass">
+            <b>Repeat Password</b>
+          </label>
+          <input
+            type="password"
+            placeholder="re-password"
+            {...register("rePassword", {
+              required: true,
+              min: 3,
+              maxLength: 30,
+            })}
+          />
+          <hr />
 
+          <button type="submit" className="registerbtn">
+            Register
+          </button>
+        </div>
 
-    )
-}
+        <div className="container signin">
+          <p>
+            Already have an account? <a href="#">Sign in</a>.
+          </p>
+        </div>
+      </form>
+    </>
+  );
+};
 
 export default Register;
