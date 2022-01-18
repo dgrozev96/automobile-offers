@@ -20,6 +20,8 @@ const AddCar = () => {
     let imageUrl = formData.get("imageUrl");
     let engine = formData.get("engine");
 
+    console.log(formData.values());
+
     offerService
       .create(
         {
