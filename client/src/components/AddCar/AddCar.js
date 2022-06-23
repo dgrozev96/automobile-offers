@@ -1,3 +1,4 @@
+import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as offerService from "../../services/offerService";
@@ -9,19 +10,16 @@ const AddCar = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const onOfferCreate = (e) => {
-    e.preventDefault();
-    let formData = new FormData(e.currentTarget);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    let brand = formData.get("brand");
-    let make = formData.get("make");
-    let price = formData.get("price");
-    let details = formData.get("details");
-    let imageUrl = formData.get("imageUrl");
-    let engine = formData.get("engine");
-
-    console.log(formData.values());
-
+  const onOfferCreate = (data) => {
+    // console.log(data);
+    let { brand, make, engine, price, details, imageUrl } = data;
+    // console.log(Brand, Make, Engine, Price, Details, ImageUrl);
     offerService
       .create(
         {
@@ -36,7 +34,6 @@ const AddCar = () => {
       )
       .then((result) => {
         navigate("/");
-
         NotificationManager.success(
           "You successfully added a car",
           "Success!",
@@ -47,28 +44,46 @@ const AddCar = () => {
 
   return (
     <>
-      <form onSubmit={onOfferCreate} method="POST">
+      <form method="POST" onSubmit={handleSubmit(onOfferCreate)}>
         <div className="container">
           <h1>Add a car</h1>
           <p>Please fill in this form to add a new car.</p>
           <hr />
 
-          <label htmlfor="brand">
+          <label htmlFor="brand">
             <b>Brand</b>
           </label>
-          <input type="text" name="brand" id="brand" placeholder="Volkswagen" />
+          <input
+            type="text"
+            name="brand"
+            id="drand"
+            placeholder="Volkswagen"
+            {...register("brand", { required: true, min: 1, maxLength: 40 })}
+          />
 
-          <label htmlfor="make">
+          <label htmlFor="make">
             <b>Make</b>
           </label>
-          <input type="text" name="make" id="make" placeholder="Golf 5" />
+          <input
+            type="text"
+            name="make"
+            id="make"
+            placeholder="Golf 5"
+            {...register("make", { required: true, min: 1, maxLength: 40 })}
+          />
 
-          <label htmlfor="engine">
+          <label htmlFor="engine">
             <b>Engine</b>
           </label>
-          <input type="text" name="engine" id="engine" placeholder="1.9 TDI" />
+          <input
+            type="text"
+            name="engine"
+            id="engine"
+            placeholder="1.9 TDI"
+            {...register("engine", { required: true, min: 1, maxLength: 40 })}
+          />
 
-          <label htmlfor="price">
+          <label htmlFor="price">
             <b>Price</b>
           </label>
           <input
@@ -77,6 +92,11 @@ const AddCar = () => {
             name="price"
             id="price"
             placeholder="5000 Euro"
+            {...register("price", {
+              required: true,
+              min: 1,
+              maxLength: 40,
+            })}
           />
 
           <label htmlFor="details">
@@ -87,16 +107,18 @@ const AddCar = () => {
             name="details"
             id="details"
             placeholder="more info about the car"
+            {...register("details", {})}
           />
 
           <label htmlFor="image">
             <b>Picture</b>
           </label>
           <input
-            type="text"
+            type="url"
             name="imageUrl"
             id="image"
             placeholder="Link to a picture of the car"
+            {...register("imageUrl", { required: true })}
           />
 
           <hr />

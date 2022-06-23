@@ -15,6 +15,7 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     let { email, password, rePassword } = data;
     // console.log(data);
